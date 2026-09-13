@@ -106,7 +106,7 @@ export const App: React.FC = () => {
   const renderEndpoint = () => {
     switch (activeEndpoint) {
       case 'actualidad':
-        return <ActualidadSection onNavigate={navigateTo} />;
+        return <ActualidadSection />;
       case 'ruta-avo':
         return <RutaAvoSection onNavigate={navigateTo} />;
       case 'recursos':
@@ -135,7 +135,7 @@ export const App: React.FC = () => {
             <HomeArchive onNavigate={navigateTo} />
           </>
         ) : (
-          <EndpointShell onNavigate={navigateTo}>{renderEndpoint()}</EndpointShell>
+          <EndpointShell>{renderEndpoint()}</EndpointShell>
         )}
       </main>
 

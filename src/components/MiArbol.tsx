@@ -695,7 +695,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
   };
 
   const descendingPersonas = [...personas].reverse();
-  const avoPersona = personas.find(p => p.esAvo);
 
   return (
     <div className="w-full bg-transparent min-h-screen py-6 md:py-10">
@@ -704,33 +703,14 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
         {/* Header Consular */}
         <div className="border-b border-[#07214e]/20 pb-6 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="border-l-4 border-[#076525] pl-6 md:pl-8 space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#07214e] tracking-tight">
-                Línea de Transmisión del Avo
-              </h1>
-              {/* Badge sutil y sobrio de guardado */}
-              <div 
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#076525]/10 border border-[#076525]/30 text-[#076525] text-xs font-mono tracking-tight select-none"
-                title="Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso."
-              >
-                <Check className="w-3.5 h-3.5 text-[#076525] stroke-[2.5]" />
-                <span className="font-semibold">✓ Guardado en este navegador</span>
-              </div>
-            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#07214e] tracking-tight">
+              Línea de Transmisión del Avo
+            </h1>
 
             <p className="text-sm md:text-base text-neutral-600 max-w-3xl font-light">
               Mapeá tu cadena ininterrumpida de ciudadanía desde el antepasado italiano hasta vos.
               Estructura con soporte de parejas lado a lado, escala compacta y actualización visual en tiempo real.
             </p>
-
-            {/* Mensaje aclaratorio de privacidad / almacenamiento local */}
-            <div 
-              className="pt-1 flex items-center gap-2 text-xs text-neutral-500 font-mono"
-              title="Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso."
-            >
-              <ShieldCheck className="w-4 h-4 text-[#076525] shrink-0" />
-              <span>Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso.</span>
-            </div>
           </div>
 
           {/* Barra de Herramientas Global */}
@@ -844,20 +824,14 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
             <div className="w-12 h-12 bg-[#07214e] text-white flex items-center justify-center shrink-0 border border-[#07214e]">
               <FileText className="w-6 h-6 text-[#FEBF02]" />
             </div>
-            <div>
-              <div className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-                Carpeta Consular
-              </div>
-              <div className="font-serif text-xl text-[#07214e]">
-                {totalActasConseguidas} de {totalActasRequeridas} actas reunidas ({porcentajeCompletado}%)
-              </div>
+            <div className="font-serif text-xl text-[#07214e]">
+              {totalActasConseguidas} de {totalActasRequeridas} actas reunidas ({porcentajeCompletado}%)
             </div>
           </div>
 
           {/* Barra de progreso visual */}
           <div className="w-full md:max-w-md space-y-2">
-            <div className="flex justify-between text-xs font-mono text-neutral-500">
-              <span>Transmisión documental</span>
+            <div className="flex justify-end text-xs font-mono text-neutral-500">
               <span>{porcentajeCompletado === 100 ? '✓ Línea completa' : `${totalActasRequeridas - totalActasConseguidas} pendientes`}</span>
             </div>
             <div className="h-2 w-full bg-neutral-100 overflow-hidden border border-neutral-200">
@@ -866,10 +840,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                 style={{ width: `${porcentajeCompletado}%` }}
               />
             </div>
-          </div>
-
-          <div className="text-xs font-mono text-neutral-500 bg-[#FBFBFA] px-3 py-2 border border-neutral-200 text-center md:text-right shrink-0">
-            {personas.length} Generaciones · {avoPersona?.nombreCompleto ? `Avo: ${avoPersona.nombreCompleto}` : 'Avo italiano por definir'}
           </div>
         </div>
 
@@ -884,12 +854,7 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
           <div className="lg:col-span-5 xl:col-span-5 space-y-6">
 
             {/* Selector rápido de Generación */}
-            <div className="bg-white border border-neutral-200 p-3 shadow-2xs space-y-2">
-              <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-neutral-500 px-1">
-                <span>Generación activa:</span>
-                <span className="text-neutral-400 font-normal">{personas.length} niveles</span>
-              </div>
-              
+            <div className="bg-white border border-neutral-200 p-3 shadow-2xs">
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-2">
                 {descendingPersonas.map((p) => {
                   const isSelected = p.id === selectedPersona.id;
@@ -946,9 +911,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                     <h3 className="font-serif text-base leading-tight">
                       {selectedPersona.parentesco}
                     </h3>
-                    <div className="text-[11px] font-mono text-neutral-300">
-                      {selectedPersona.esAvo ? 'Transmisor Iure Sanguinis' : 'Cadena de transmisión'}
-                    </div>
                   </div>
                 </div>
 
@@ -1021,9 +983,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                     
                     {/* Identificación */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <User className="w-3.5 h-3.5 text-[#07214e]" />
-                        1. Identificación del Antepasado de la Línea
+                        Identificación
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1070,9 +1032,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Nacimiento y País */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <Globe2 className="w-4 h-4 text-[#07214e]" aria-hidden="true" />
-                        2. Nacimiento y Origen
+                        Nacimiento y Origen
                       </h4>
 
                       <div className="space-y-1.5">
@@ -1132,9 +1094,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Estado Vital */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <HeartPulse className="h-4 w-4 text-[#07214e]" aria-hidden="true" />
-                        3. Estado Vital
+                        Estado Vital
                       </h4>
 
                       <div className="flex gap-4">
@@ -1196,8 +1158,8 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                       <div className="p-4 bg-emerald-50/50 border border-[#076525]/30 space-y-4">
                         <div className="flex items-center gap-2 text-[#076525]">
                           <CountryFlag country="italia" className="w-6 h-auto rounded-[2px]" />
-                          <h4 className="text-xs font-mono uppercase font-bold tracking-wider">
-                            Control Consular Específico del Avo Italiano
+                          <h4 className="text-xs font-mono uppercase font-semibold text-[#076525]">
+                            Control del Avo Italiano
                           </h4>
                         </div>
 
@@ -1259,9 +1221,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Checklist de Actas del Antepasado */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <ShieldCheck className="w-3.5 h-3.5 text-[#07214e]" />
-                        4. Actas Físicas del Antepasado
+                        Actas Físicas
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1363,9 +1325,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                     
                     {/* Identificación de la Esposa */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <Users className="w-3.5 h-3.5 text-[#07214e]" />
-                        1. Identificación de la Esposa / Pareja
+                        Identificación
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1399,9 +1361,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Nacimiento y País de la Esposa */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <Globe2 className="w-4 h-4 text-[#07214e]" aria-hidden="true" />
-                        2. Nacimiento y Origen de la Esposa
+                        Nacimiento y Origen
                       </h4>
 
                       <div className="space-y-1.5">
@@ -1461,9 +1423,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Estado Vital de la Esposa */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <HeartPulse className="h-4 w-4 text-[#07214e]" aria-hidden="true" />
-                        3. Estado Vital de la Esposa
+                        Estado Vital
                       </h4>
 
                       <div className="flex gap-4">
@@ -1522,9 +1484,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                     {/* Actas de la Esposa */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <ShieldCheck className="w-3.5 h-3.5 text-[#07214e]" />
-                        4. Actas Físicas de la Esposa
+                        Actas Físicas
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1585,9 +1547,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                   <div className="space-y-5">
                     
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <Heart className="w-3.5 h-3.5 text-[#07214e]" />
-                        1. Datos del Matrimonio de esta Generación
+                        Datos del Matrimonio
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1620,9 +1582,9 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                     </div>
 
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 pb-1 border-b border-neutral-100 flex items-center gap-2">
+                      <h4 className="text-xs font-mono uppercase text-neutral-500 pb-1 border-b border-neutral-100 flex items-center gap-2 font-medium">
                         <ShieldCheck className="w-3.5 h-3.5 text-[#07214e]" />
-                        2. Acta de Matrimonio
+                        Acta de Matrimonio
                       </h4>
 
                       <label className={`p-3 border cursor-pointer transition-colors flex items-start gap-2.5 ${
@@ -1691,22 +1653,16 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
           <div className="lg:col-span-7 xl:col-span-7 lg:sticky lg:top-24 space-y-4">
             
             {/* Header del Panel Derecho */}
-            <div className="bg-white border border-neutral-200 p-4 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#076525]" />
-                  <h2 className="font-serif text-lg md:text-xl text-[#07214e] font-medium leading-tight">
-                    Estructura Genealógica del Expediente
-                  </h2>
-                </div>
-                <p className="text-xs text-neutral-500 font-light mt-0.5">
-                  Visualización compacta en tiempo real · Hacé clic en cualquier integrante o matrimonio para editarlo.
-                </p>
+            <div className="bg-white border border-neutral-200 p-4 shadow-2xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#076525]" />
+                <h2 className="font-serif text-lg md:text-xl text-[#07214e] font-medium leading-tight">
+                  Estructura Genealógica del Expediente
+                </h2>
               </div>
-
-              <div className="text-[11px] font-mono text-neutral-500 bg-[#FBFBFA] px-2.5 py-1 border border-neutral-200 shrink-0">
-                Línea descendente (Avo ➔ Yo)
-              </div>
+              <p className="text-xs text-neutral-500 font-light mt-0.5">
+                Visualización compacta en tiempo real · Hacé clic en cualquier integrante o matrimonio para editarlo.
+              </p>
             </div>
 
             {/* Contenedor del Árbol Genealógico Editorial */}
@@ -1730,19 +1686,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
                   return (
                     <React.Fragment key={persona.id}>
-                      
-                      {/* Generación: Cabecera pequeña */}
-                      <div className="w-[338px] flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-1.5 px-1">
-                        <span className="tracking-widest uppercase font-semibold">
-                          GEN {persona.generationIndex} · {isAvo ? 'AVO ITALIANO' : persona.generationIndex === 0 ? 'SOLICITANTE' : 'TRANSMISIÓN'}
-                        </span>
-                        {isAvo && (
-                          <span className="text-[#076525] font-bold uppercase tracking-wider text-[9px] bg-emerald-50 px-1.5 py-0.2 border border-emerald-200">
-                            Raíz del Derecho
-                          </span>
-                        )}
-                      </div>
-
                       {/* Pareja: Fila de dos nodos lado a lado con conector central de matrimonio */}
                       <div className="flex items-center justify-center w-[338px] relative">
                         
@@ -1805,15 +1748,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                               ) : null}
                             </div>
                           </div>
-
-                          {/* Badge flotante cuando está seleccionado */}
-                          {isSelectedAntepasado && (
-                            <div className={`absolute -top-2 left-2 px-1 py-0.2 text-[7.5px] font-mono uppercase tracking-widest text-white shadow-2xs ${
-                              isAvo ? 'bg-[#076525]' : 'bg-[#07214e]'
-                            }`}>
-                              Editando
-                            </div>
-                          )}
                         </div>
 
                         {/* 2. CONECTOR CENTRAL: MATRIMONIO */}
@@ -1903,13 +1837,6 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                               ) : null}
                             </div>
                           </div>
-
-                          {/* Badge flotante cuando está seleccionada */}
-                          {isSelectedConyuge && (
-                            <div className="absolute -top-2 right-2 px-1 py-0.2 text-[7.5px] font-mono uppercase tracking-widest text-white bg-[#07214e] shadow-2xs">
-                              Editando
-                            </div>
-                          )}
                         </div>
 
                       </div>
@@ -1923,15 +1850,11 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
                               d="M 169 0 V 16 H 72.5 V 32" 
                               stroke="#94a3b8" 
                               strokeWidth="1.5" 
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
+                              strokeLinecap="round" 
+                              strokeLinejoin="round" 
                             />
                             {/* Flecha terminal indicando filiación hacia el hijo */}
                             <polygon points="69.5,28 72.5,32 75.5,28" fill="#64748b" />
-                            {/* Texto sutil de filiación directa */}
-                            <text x="120" y="12" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="monospace">
-                              filiación ↓
-                            </text>
                           </svg>
                         </div>
                       )}
@@ -1944,16 +1867,8 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
             </div>
 
             {/* Resumen y Leyenda al pie del árbol */}
-            <div className="bg-white border border-neutral-200 p-4 shadow-2xs space-y-2 text-xs font-mono text-neutral-600">
-              <div className="flex items-center justify-between">
-                <span className="text-neutral-400 uppercase tracking-wider text-[10px]">
-                  Leyenda del Árbol Consular
-                </span>
-                <span className="text-[#07214e] font-semibold">
-                  {personas.length} Generaciones Mapeadas
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-[11px] text-neutral-500 pt-1 border-t border-neutral-100">
+            <div className="bg-white border border-neutral-200 p-4 shadow-2xs text-xs font-mono text-neutral-600">
+              <div className="grid grid-cols-2 gap-2 text-[11px] text-neutral-500">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 bg-white border border-[#076525] border-t-2 border-t-[#076525] shrink-0" />
                   <span>Avo Italiano (Raíz)</span>

@@ -91,28 +91,23 @@ export const VideosSection: React.FC = () => {
             </p>
           </div>
 
-          <aside className="border-l-2 border-[#D20911] pl-6 py-1">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-[#07214e] mb-2">Criterio editorial</div>
+          <aside className="border-l-2 border-[#D20911] pl-6 py-1 flex flex-col items-start">
             <p className="text-sm text-[#525252] leading-6 font-light">
               Algunas piezas fueron grabadas en 2024. Los métodos de búsqueda siguen siendo útiles; los datos jurídicos, costos e interfaces se marcan cuando pueden haber cambiado.
             </p>
+            <a
+              href="https://www.youtube.com/@vianostrauy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#D20911] px-5 py-3 text-xs font-medium uppercase tracking-wider text-white hover:bg-[#ad0710] transition-colors"
+            >
+              <Play className="w-4 h-4" aria-hidden="true" />
+              Abrir canal de YouTube
+            </a>
           </aside>
         </div>
 
-        <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#525252]">06 piezas · publicación gradual</p>
-          <a
-            href="https://www.youtube.com/@vianostrauy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#D20911] px-5 py-3 text-xs font-medium uppercase tracking-wider text-white hover:bg-[#ad0710] transition-colors self-start sm:self-auto"
-          >
-            <Play className="w-4 h-4" aria-hidden="true" />
-            Abrir canal de YouTube
-          </a>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-16">
+        <div className="mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-16">
           {VIDEOS.map((video) => (
             <article key={video.id} className="min-w-0">
               <div className="aspect-[9/16] max-h-[620px] rounded-lg border border-[#07214e]/15 bg-black overflow-hidden relative shadow-sm">
