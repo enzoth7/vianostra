@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Host: https://vianostra.uy
-Sitemap: https://vianostra.uy/sitemap.xml
+Host: https://vianostra.vercel.app
+Sitemap: https://vianostra.vercel.app/sitemap.xml
 

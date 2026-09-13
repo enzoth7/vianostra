@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vianostra.uy/</loc>
+    <loc>https://vianostra.vercel.app/</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/actualidad</loc>
+    <loc>https://vianostra.vercel.app/actualidad</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/ruta-avo</loc>
+    <loc>https://vianostra.vercel.app/ruta-avo</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/recursos</loc>
+    <loc>https://vianostra.vercel.app/recursos</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/diagnostico</loc>
+    <loc>https://vianostra.vercel.app/diagnostico</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/videos</loc>
+    <loc>https://vianostra.vercel.app/videos</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/carta-comuna</loc>
+    <loc>https://vianostra.vercel.app/carta-comuna</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vianostra.uy/mi-arbol</loc>
+    <loc>https://vianostra.vercel.app/mi-arbol</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

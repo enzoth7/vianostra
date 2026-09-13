@@ -683,7 +683,7 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
 
     lines.push('===============================================================');
     lines.push('Generado con la herramienta "Mi Árbol" de Via Nostra (Montevideo, Uruguay)');
-    lines.push('https://vianostra.uy / Documento para control consular y legal.');
+    lines.push('https://vianostra.vercel.app / Documento para control consular y legal.');
     lines.push('===============================================================');
 
     navigator.clipboard.writeText(lines.join('\n')).then(() => {
