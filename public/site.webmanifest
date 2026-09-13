@@ -1,0 +1,22 @@
+{
+  "name": "Via Nostra | Genealogía Italiana en Uruguay",
+  "short_name": "Via Nostra",
+  "description": "Archivo genealógico y métodos documentales para uruguayos que investigan sus raíces en Italia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBFBFA",
+  "theme_color": "#07214e",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
