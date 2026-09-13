@@ -20,7 +20,7 @@ export const VIDEO_EPISODES: VideoEpisode[] = [
     documentsMentioned: ['Pasaportes del Reino de Cerdeña', 'Listas de embarque del Puerto de Génova'],
     platform: 'youtube',
     videoType: 'masterclass',
-    youtubeUrl: 'https://www.youtube.com/@ViaNostraBo',
+    youtubeUrl: 'https://www.youtube.com/@vianostrauy',
     date: 'Enero 2026'
   },
   {
@@ -42,7 +42,7 @@ export const VIDEO_EPISODES: VideoEpisode[] = [
     documentsMentioned: ['Certificato di Battesimo', 'Visto della Curia Vescovile', 'Estratto per riassunto'],
     platform: 'youtube',
     videoType: 'masterclass',
-    youtubeUrl: 'https://www.youtube.com/@ViaNostraBo',
+    youtubeUrl: 'https://www.youtube.com/@vianostrauy',
     date: 'Febrero 2026'
   },
   {
@@ -64,7 +64,7 @@ export const VIDEO_EPISODES: VideoEpisode[] = [
     documentsMentioned: ['Certificado de No Naturalización (Corte Electoral)', 'Partida de Defunción DGREC', 'Expedientes Matrimoniales'],
     platform: 'ambos',
     videoType: 'masterclass',
-    youtubeUrl: 'https://www.youtube.com/@ViaNostraBo',
+    youtubeUrl: 'https://www.youtube.com/@vianostrauy',
     tiktokUrl: 'https://www.tiktok.com/@vianostrabo',
     date: 'Febrero 2026'
   },
@@ -87,7 +87,7 @@ export const VIDEO_EPISODES: VideoEpisode[] = [
     documentsMentioned: ['Circular K28/1991', 'Información Sumaria', 'Rectificación de Partida'],
     platform: 'ambos',
     videoType: 'masterclass',
-    youtubeUrl: 'https://www.youtube.com/@ViaNostraBo',
+    youtubeUrl: 'https://www.youtube.com/@vianostrauy',
     tiktokUrl: 'https://www.tiktok.com/@vianostrabo',
     date: 'Febrero 2026'
   },

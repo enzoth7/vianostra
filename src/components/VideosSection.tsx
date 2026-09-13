@@ -1,5 +1,4 @@
-import React from 'react';
-import { ArrowUpRight, Clock3, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 interface VideoItem {
   id: string;
@@ -9,51 +8,54 @@ interface VideoItem {
   duration: string;
   recorded: string;
   status: 'Publicado' | 'En edición';
-  videoUrl?: string;
+  videoId?: string;
   topics: string[];
 }
 
 const VIDEOS: VideoItem[] = [
   {
-    id: 'guia-cero',
-    number: '01',
-    title: 'Ciudadanía italiana: guía paso a paso desde cero',
-    description: 'El mapa general del proceso: reconstruir la línea, localizar el nacimiento italiano y ordenar las partidas antes de tomar decisiones.',
-    duration: '1:34',
-    recorded: 'Archivo 2024',
-    status: 'Publicado',
-    videoUrl: 'https://www.youtube.com/watch?v=uh3R1tiv_Xk',
-    topics: ['Línea familiar', 'Partidas', 'Comuna'],
-  },
-  {
     id: 'sin-gestores',
-    number: '02',
-    title: 'El paso a paso desde Uruguay, sin gestores',
+    number: '01',
+    title: 'Ciudadanía italiana para uruguayos sin gestor',
     description: 'Qué podés investigar por tu cuenta y cómo evitar gastos antes de saber si la documentación básica existe.',
-    duration: '0:19',
-    recorded: 'Archivo 2024',
-    status: 'En edición',
+    duration: 'Short',
+    recorded: 'Publicado · 2025',
+    status: 'Publicado',
+    videoId: 'ir3WJ1JJnGk',
     topics: ['Uruguay', 'Método', 'Primeros pasos'],
   },
   {
     id: 'apellido',
-    number: '03',
-    title: '¿Tu apellido suena italiano? La primera pista',
+    number: '02',
+    title: '¿Cómo saber si tu apellido es italiano?',
     description: 'Cómo usar la distribución de un apellido como indicio sin confundir una pista genealógica con una prueba documental.',
-    duration: '0:27',
-    recorded: 'Archivo 2024',
-    status: 'En edición',
+    duration: 'Short',
+    recorded: 'Publicado · 2025',
+    status: 'Publicado',
+    videoId: 'xHpkHWpSghI',
     topics: ['Apellidos', 'Origen', 'Fuentes'],
   },
   {
     id: 'costos',
-    number: '04',
-    title: 'Ciudadanía y costos: Uruguay frente a Italia',
+    number: '03',
+    title: '¿Cuánto cuesta la ciudadanía italiana?',
     description: 'Una comparación breve de los gastos que intervenían en cada vía al momento de grabar el material.',
-    duration: '0:23',
-    recorded: 'Archivo 2024 · revisar vigencia',
-    status: 'En edición',
+    duration: 'Short',
+    recorded: 'Publicado · 2025',
+    status: 'Publicado',
+    videoId: 'cSHWaGQjqHU',
     topics: ['Costos', 'Uruguay', 'Italia'],
+  },
+  {
+    id: 'empezar-sin-gestor',
+    number: '04',
+    title: 'Cómo empezar tu ciudadanía italiana sin gestor',
+    description: 'El mapa general del proceso: reconstruir la línea, localizar el nacimiento italiano y ordenar las partidas antes de tomar decisiones.',
+    duration: 'Short',
+    recorded: 'Publicado · 2026',
+    status: 'Publicado',
+    videoId: 'MFOIDY931F0',
+    topics: ['Línea familiar', 'Partidas', 'Comuna'],
   },
   {
     id: 'expediente-matrimonial',
@@ -100,47 +102,33 @@ export const VideosSection: React.FC = () => {
         <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#525252]">06 piezas · publicación gradual</p>
           <a
-            href="https://www.youtube.com/@ViaNostraBo"
+            href="https://www.youtube.com/@vianostrauy"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#D20911] px-5 py-3 text-xs font-medium uppercase tracking-wider text-white hover:bg-[#ad0710] transition-colors self-start sm:self-auto"
           >
             <Play className="w-4 h-4" aria-hidden="true" />
             Abrir canal de YouTube
-            <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
           </a>
         </div>
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-16">
           {VIDEOS.map((video) => (
             <article key={video.id} className="min-w-0">
-              <div className="aspect-[9/16] max-h-[620px] rounded-lg border border-[#07214e]/15 bg-white overflow-hidden relative">
-                {video.videoUrl ? (
-                  <a
-                    href={video.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Ver video: ${video.title}`}
-                    className="absolute inset-0 bg-[#07214e] text-white flex flex-col justify-between p-6 md:p-8 hover:bg-[#07214e] transition-colors"
-                  >
-                    <div className="flex items-start justify-between border-b border-white/20 pb-5">
-                      <span className="font-serif text-xl">Via Nostra</span>
-                      <span className="font-mono text-xs text-white/55">{video.number}</span>
-                    </div>
-                    <div>
-                      <span className="w-14 h-14 rounded-md bg-[#D20911] flex items-center justify-center">
-                        <Play className="w-6 h-6 fill-white stroke-white" aria-hidden="true" />
-                      </span>
-                      <div className="mt-6 mb-5 h-px bg-white/25" />
-                      <p className="font-serif text-2xl md:text-3xl leading-tight max-w-xs">{video.title}</p>
-                    </div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">Publicado · ver en YouTube</div>
-                  </a>
+              <div className="aspect-[9/16] max-h-[620px] rounded-lg border border-[#07214e]/15 bg-black overflow-hidden relative shadow-sm">
+                {video.videoId ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.videoId}`}
+                    title={video.title}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
                 ) : (
                   <div className="absolute inset-0 bg-[#07214e] text-white flex flex-col justify-between p-6 md:p-8">
-                    <div className="flex items-start justify-between border-b border-white/20 pb-5">
+                    <div className="border-b border-white/20 pb-5">
                       <span className="font-serif text-xl">Via Nostra</span>
-                      <span className="font-mono text-xs text-white/55">{video.number}</span>
                     </div>
                     <div>
                       <Play className="w-11 h-11 stroke-[1.15] text-white/85" aria-hidden="true" />
@@ -152,16 +140,7 @@ export const VideosSection: React.FC = () => {
                 )}
               </div>
 
-              <div className="mt-5 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-wider">
-                <span className={video.status === 'Publicado' ? 'text-[#076525]' : 'text-[#525252]'}>{video.status}</span>
-                <span className="inline-flex items-center gap-1.5 text-[#525252]"><Clock3 className="w-3 h-3" aria-hidden="true" />{video.duration}</span>
-              </div>
-              <h2 className="mt-2 font-serif text-2xl text-[#07214e] leading-tight">{video.title}</h2>
-              <p className="mt-3 text-sm text-[#525252] font-light leading-6">{video.description}</p>
-              <div className="mt-5 pt-4 border-t border-[#07214e]/15 font-mono text-[10px] uppercase tracking-wider text-[#07214e]/55">
-                <div>{video.recorded}</div>
-                <div className="mt-2 normal-case tracking-normal leading-5">{video.topics.join(' · ')}</div>
-              </div>
+              <h2 className="mt-3 font-serif text-xl md:text-2xl text-[#07214e] leading-snug">{video.title}</h2>
             </article>
           ))}
         </div>

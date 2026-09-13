@@ -1,5 +1,4 @@
-import React from 'react';
-import { Archive, ArrowUpRight, BookOpen, Clock3, Play, Search } from 'lucide-react';
+import { Archive, BookOpen, Search } from 'lucide-react';
 import type { EndpointType } from './Navbar';
 
 interface HomeArchiveProps {
@@ -11,69 +10,86 @@ interface HomeVideo {
   number: string;
   title: string;
   duration: string;
-  status: 'Publicado' | 'En edición';
-  videoUrl?: string;
+  status: 'Publicado';
+  videoId: string;
 }
 
 const HOME_VIDEOS: HomeVideo[] = [
   {
-    id: 'guia-cero',
-    number: '01',
-    title: 'Ciudadanía italiana: guía paso a paso desde cero',
-    duration: '1:34',
-    status: 'Publicado',
-    videoUrl: 'https://www.youtube.com/watch?v=uh3R1tiv_Xk',
-  },
-  {
     id: 'sin-gestores',
-    number: '02',
-    title: 'El paso a paso desde Uruguay, sin gestores',
-    duration: '0:19',
-    status: 'En edición',
+    number: '01',
+    title: 'Ciudadanía italiana para uruguayos sin gestor',
+    duration: 'Short',
+    status: 'Publicado',
+    videoId: 'ir3WJ1JJnGk',
   },
   {
     id: 'apellido',
-    number: '03',
-    title: '¿Tu apellido suena italiano? La primera pista',
-    duration: '0:27',
-    status: 'En edición',
+    number: '02',
+    title: '¿Cómo saber si tu apellido es italiano?',
+    duration: 'Short',
+    status: 'Publicado',
+    videoId: 'xHpkHWpSghI',
   },
   {
     id: 'costos',
+    number: '03',
+    title: '¿Cuánto cuesta la ciudadanía italiana?',
+    duration: 'Short',
+    status: 'Publicado',
+    videoId: 'cSHWaGQjqHU',
+  },
+  {
+    id: 'empezar-sin-gestor',
     number: '04',
-    title: 'Ciudadanía y costos: Uruguay frente a Italia',
-    duration: '0:23',
-    status: 'En edición',
+    title: 'Cómo empezar tu ciudadanía italiana sin gestor',
+    duration: 'Short',
+    status: 'Publicado',
+    videoId: 'MFOIDY931F0',
   },
 ];
 
-const START_POINTS: Array<{
-  number: string;
+interface StartPoint {
   title: string;
   description: string;
   endpoint: EndpointType;
   icon: React.ComponentType<{ className?: string }>;
-}> = [
+  bgClass: string;
+  titleClass: string;
+  descClass: string;
+  iconClass: string;
+}
+
+const START_POINTS: StartPoint[] = [
   {
-    number: '01',
     title: 'Reconstruí la línea familiar',
     description: 'Ordená nombres, fechas y lugares antes de pedir una sola partida.',
     endpoint: 'mi-arbol',
     icon: BookOpen,
+    bgClass: 'bg-[#076525]',
+    titleClass: 'text-white',
+    descClass: 'text-white/85',
+    iconClass: 'border-white/30 text-white group-hover:bg-white group-hover:text-[#076525]',
   },
   {
-    number: '02',
     title: 'Encontrá el lugar de origen',
     description: 'Seguí una ruta documental entre archivos uruguayos e italianos.',
     endpoint: 'ruta-avo',
     icon: Search,
+    bgClass: 'bg-white',
+    titleClass: 'text-[#07214e]',
+    descClass: 'text-[#525252]',
+    iconClass: 'border-[#07214e]/20 text-[#07214e] group-hover:bg-[#07214e] group-hover:text-white',
   },
   {
-    number: '03',
     title: 'Consultá las fuentes',
     description: 'Accedé a registros, portales y organismos sin intermediarios.',
     endpoint: 'recursos',
     icon: Archive,
+    bgClass: 'bg-[#D20911]',
+    titleClass: 'text-white',
+    descClass: 'text-white/85',
+    iconClass: 'border-white/30 text-white group-hover:bg-white group-hover:text-[#D20911]',
   },
 ];
 
@@ -96,10 +112,6 @@ export const HomeArchive: React.FC<HomeArchiveProps> = ({ onNavigate }) => {
             <p className="text-sm md:text-base text-white/75 font-light leading-7">
               Via Nostra reúne investigación, métodos de búsqueda y material audiovisual producido por Enzo. El proyecto se actualiza sin una frecuencia fija: importa más preservar el trabajo y documentar bien cada hallazgo.
             </p>
-            <div className="mt-6 pt-5 border-t border-white/15 grid grid-cols-2 gap-5 font-mono text-[11px] uppercase tracking-wider text-white/55">
-              <span>Montevideo, Uruguay</span>
-              <span>Uruguay ↔ Italia</span>
-            </div>
           </div>
         </div>
       </section>
@@ -118,56 +130,26 @@ export const HomeArchive: React.FC<HomeArchiveProps> = ({ onNavigate }) => {
             <a
               href="/videos"
               onClick={(event) => handleNav(event, 'videos')}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#07214e] px-6 py-3 text-xs font-medium uppercase tracking-wider text-[#07214e] hover:bg-[#07214e] hover:text-white transition-colors self-start lg:self-auto"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#07214e] px-6 py-3 text-xs font-medium uppercase tracking-wider text-[#07214e] hover:bg-[#07214e] hover:text-white transition-colors self-start lg:self-auto"
             >
               Ver toda la videoteca
-              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </a>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-7">
             {HOME_VIDEOS.map((video) => (
               <article key={video.id} className="min-w-0">
-                <div className="aspect-[9/16] rounded-lg border border-[#07214e]/15 bg-white overflow-hidden relative">
-                  {video.videoUrl ? (
-                    <a
-                      href={video.videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Ver video: ${video.title}`}
-                      className="absolute inset-0 bg-[#07214e] text-white flex flex-col justify-between p-4 md:p-6 hover:bg-[#07214e] transition-colors"
-                    >
-                      <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-white/55">
-                        <span>Via Nostra</span>
-                        <span>{video.number}</span>
-                      </div>
-                      <div>
-                        <span className="w-11 h-11 rounded-md bg-[#D20911] flex items-center justify-center mb-4">
-                          <Play className="w-5 h-5 fill-white stroke-white" aria-hidden="true" />
-                        </span>
-                        <div className="h-px bg-white/25 mb-4" />
-                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/60">Ver en YouTube</span>
-                      </div>
-                    </a>
-                  ) : (
-                    <div className="absolute inset-0 bg-[#07214e] text-white flex flex-col justify-between p-4 md:p-6">
-                      <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-white/55">
-                        <span>Via Nostra</span>
-                        <span>{video.number}</span>
-                      </div>
-                      <div>
-                        <Play className="w-8 h-8 md:w-10 md:h-10 stroke-[1.25] mb-4 text-white/85" aria-hidden="true" />
-                        <div className="h-px bg-white/25 mb-4" />
-                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/60">Próxima pieza</span>
-                      </div>
-                    </div>
-                  )}
+                <div className="aspect-[9/16] rounded-lg border border-[#07214e]/15 bg-black overflow-hidden relative shadow-sm">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.videoId}`}
+                    title={video.title}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
                 </div>
-                <div className="mt-4 flex items-center justify-between gap-3 font-mono text-[10px] md:text-[11px] uppercase tracking-wider text-[#525252]">
-                  <span className={video.status === 'Publicado' ? 'text-[#076525]' : ''}>{video.status}</span>
-                  <span className="inline-flex items-center gap-1.5"><Clock3 className="w-3 h-3" aria-hidden="true" />{video.duration}</span>
-                </div>
-                <h3 className="mt-2 font-serif text-lg md:text-xl leading-snug text-[#07214e]">{video.title}</h3>
+                <h3 className="mt-3 font-serif text-base md:text-lg leading-snug text-[#07214e]">{video.title}</h3>
               </article>
             ))}
           </div>
@@ -184,22 +166,25 @@ export const HomeArchive: React.FC<HomeArchiveProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            <div className="border-t border-[#07214e]/20">
+            <div className="border border-[#07214e]/15 divide-y divide-[#07214e]/15 overflow-hidden rounded-sm shadow-sm">
               {START_POINTS.map((item) => {
                 const Icon = item.icon;
                 return (
                   <a
-                    key={item.number}
+                    key={item.endpoint}
                     href={`/${item.endpoint}`}
                     onClick={(event) => handleNav(event, item.endpoint)}
-                    className="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[4rem_1fr_auto] gap-3 md:gap-6 items-center border-b border-[#07214e]/20 py-6 md:py-8 hover:bg-white transition-colors"
+                    className={`group flex items-center justify-between gap-4 md:gap-6 px-6 md:px-8 py-6 md:py-7 transition-all ${item.bgClass}`}
                   >
-                    <span className="font-mono text-xs text-[#07214e]/45">{item.number}</span>
-                    <span>
-                      <span className="block font-serif text-xl md:text-2xl text-[#07214e]">{item.title}</span>
-                      <span className="block mt-1 text-xs md:text-sm text-[#525252] font-light leading-6">{item.description}</span>
-                    </span>
-                    <span className="w-11 h-11 rounded-md border border-[#07214e]/25 flex items-center justify-center text-[#07214e] group-hover:bg-[#07214e] group-hover:text-white transition-colors">
+                    <div>
+                      <h3 className={`font-serif text-xl md:text-2xl leading-snug ${item.titleClass}`}>
+                        {item.title}
+                      </h3>
+                      <p className={`text-xs md:text-sm font-light leading-relaxed mt-1 ${item.descClass}`}>
+                        {item.description}
+                      </p>
+                    </div>
+                    <span className={`w-11 h-11 rounded-md border flex items-center justify-center shrink-0 transition-colors ${item.iconClass}`}>
                       <Icon className="w-4 h-4 stroke-[1.5]" aria-hidden="true" />
                     </span>
                   </a>

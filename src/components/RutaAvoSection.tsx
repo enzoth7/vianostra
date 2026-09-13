@@ -87,7 +87,7 @@ export const RutaAvoSection: React.FC<RutaAvoProps> = ({ onNavigate }) => {
                       rel="noopener noreferrer"
                       className="block text-neutral-800 hover:underline underline-offset-4"
                     >
-                      {link.name} →
+                      {link.name}
                     </a>
                   ))}
                 </div>
@@ -110,7 +110,7 @@ export const RutaAvoSection: React.FC<RutaAvoProps> = ({ onNavigate }) => {
             }}
             className="rounded-md px-6 py-2.5 bg-[#07214e] hover:bg-[#07214e]/90 text-white text-xs font-medium tracking-wide transition-colors cursor-pointer"
           >
-            Redactar Carta a la Comuna →
+            Redactar Carta a la Comuna
           </a>
         </div>
 

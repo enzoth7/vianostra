@@ -220,7 +220,7 @@ export const UruguayTest: React.FC<UruguayTestProps> = ({ onNavigate }) => {
                   }}
                   className="px-6 py-2.5 bg-[#07214e] text-white text-xs font-medium tracking-wide hover:bg-[#07214e]/90 transition-colors cursor-pointer"
                 >
-                  Preparar Carta a la Comuna →
+                  Preparar Carta a la Comuna
                 </a>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import appleTouchIcon from '../assets/apple-touch-icon.png';
 
 export type EndpointType =
   | 'inicio'
@@ -45,17 +46,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentEndpoint, onNavigate }) =
             event.preventDefault();
             handleNav('inicio');
           }}
-          className="flex shrink-0 items-center gap-3 rounded-md focus-visible:outline-offset-4"
+          className="flex shrink-0 items-center focus-visible:outline-offset-4"
           aria-label="Via Nostra, ir al inicio"
         >
           <img
-            src="/apple-touch-icon.png"
+            src={appleTouchIcon}
             alt="Via Nostra"
-            width="44"
-            height="44"
-            className="h-11 w-11 rounded-md bg-white object-cover"
+            width="56"
+            height="56"
+            className="h-14 w-14 object-contain hover:opacity-95 transition-opacity"
           />
-          <span className="whitespace-nowrap font-serif text-xl tracking-wide">Via Nostra</span>
         </a>
 
         <nav className="hidden xl:flex items-center justify-end gap-5 2xl:gap-7 text-[13px] 2xl:text-sm" aria-label="Navegación principal">

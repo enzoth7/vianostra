@@ -208,7 +208,7 @@ export const ActualidadSection: React.FC<ActualidadProps> = ({ onNavigate }) => 
               className="px-6 py-3 bg-[#07214e] hover:bg-[#07214e]/90 text-white text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <GitFork className="w-3.5 h-3.5" />
-              <span>Cargar mi línea en Mi Árbol →</span>
+              <span>Cargar mi línea en Mi Árbol</span>
             </a>
 
             <a
@@ -220,7 +220,7 @@ export const ActualidadSection: React.FC<ActualidadProps> = ({ onNavigate }) => 
               className="px-6 py-3 border border-[#07214e] text-[#07214e] hover:bg-neutral-50 text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <Compass className="w-3.5 h-3.5" />
-              <span>Ver la Ruta del Avo →</span>
+              <span>Ver la Ruta del Avo</span>
             </a>
           </div>
         </div>

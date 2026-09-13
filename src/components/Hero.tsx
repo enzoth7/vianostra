@@ -11,10 +11,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       <img
         src="/home.JPG"
         alt="Florencia al atardecer"
-        className="absolute inset-0 w-full h-full object-cover object-center opacity-65"
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-85"
       />
-      <div className="absolute inset-0 bg-[#07214e]/62" />
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#07214e]/80 via-[#07214e]/30 to-transparent" />
 
       <div className="relative z-10 w-full max-w-[1500px] mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="max-w-5xl">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { VIDEO_EPISODES } from '../data/videoEpisodes';
 import type { VideoEpisode } from '../types';
-import { Play, MapPin, Clock, CheckCircle, FileText, ChevronRight, X, Sparkles, ExternalLink, Video } from 'lucide-react';
+import { Play, MapPin, Clock, CheckCircle, FileText, X, Sparkles, ExternalLink, Video } from 'lucide-react';
 
 export const BitacoraNiza: React.FC = () => {
   const [selectedEpisode, setSelectedEpisode] = useState<VideoEpisode>(VIDEO_EPISODES[0]);
@@ -131,7 +131,6 @@ export const BitacoraNiza: React.FC = () => {
                   className="inline-flex items-center gap-1 text-xs font-mono text-[#F59E0B] hover:text-[#FBBF24] underline underline-offset-4"
                 >
                   <span>Ver notas completas y marcas de tiempo</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -302,7 +301,6 @@ export const BitacoraNiza: React.FC = () => {
                 className="inline-flex items-center gap-1.5 text-[#F59E0B] font-semibold hover:underline pt-1"
               >
                 <span>Ir al Generador de Solicitud</span>
-                <ChevronRight className="w-3.5 h-3.5" />
               </a>
             </div>
 

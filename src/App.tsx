@@ -34,6 +34,17 @@ const ENDPOINT_ALIASES: Record<string, EndpointType> = {
   'arbol-genealogico': 'mi-arbol',
 };
 
+const ENDPOINT_TITLES: Record<EndpointType, string> = {
+  inicio: 'Via Nostra | Genealogía y Raíces Italianas en Uruguay',
+  actualidad: 'Via Nostra | Decreto Tajani y Actualidad Jurídica',
+  'ruta-avo': 'Via Nostra | Ruta del Avo y Búsqueda de Actas',
+  recursos: 'Via Nostra | Recursos y Archivos de Investigación',
+  diagnostico: 'Via Nostra | Diagnóstico de Ciudadanía Italiana',
+  videos: 'Via Nostra | Cuaderno Audiovisual y Videos Prácticos',
+  'carta-comuna': 'Via Nostra | Generador de Carta a la Comuna',
+  'mi-arbol': 'Via Nostra | Mi Árbol y Reconstrucción Genealógica',
+};
+
 const cleanRoute = (value: string) => value.toLowerCase().replace(/^#?\/?/, '').replace(/\/+$/, '').trim();
 
 const parseEndpoint = (): EndpointType => {
@@ -51,6 +62,10 @@ const scrollToTop = () => {
 
 export const App: React.FC = () => {
   const [activeEndpoint, setActiveEndpoint] = useState<EndpointType>(parseEndpoint);
+
+  useEffect(() => {
+    document.title = ENDPOINT_TITLES[activeEndpoint] || ENDPOINT_TITLES.inicio;
+  }, [activeEndpoint]);
 
   useEffect(() => {
     const syncWithUrl = () => {

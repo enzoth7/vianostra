@@ -5,6 +5,7 @@ import {
   Copy, 
   RotateCcw, 
   Check, 
+  Save,
   FileText, 
   AlertCircle, 
   User, 
@@ -95,6 +96,8 @@ export interface PersonaFamiliar {
 
 const STORAGE_KEY = 'via_nostra_arbol_genealogico_v2';
 const LEGACY_STORAGE_KEY = 'via_nostra_arbol_genealogico_v1';
+const STORAGE_SELECTED_ID_KEY = 'via_nostra_arbol_selected_id_v2';
+const STORAGE_ACTIVE_TAB_KEY = 'via_nostra_arbol_active_tab_v2';
 
 const normalizeCountryCode = (val?: string): PaisTipo => {
   if (!val) return 'uruguay';
@@ -292,34 +295,34 @@ const migratePersona = (p: Partial<PersonaFamiliar>, index: number): PersonaFami
   return {
     id: p.id || `gen-${index}`,
     generationIndex: p.generationIndex ?? index,
-    parentesco: p.parentesco || defaults.direct,
-    parentescoConyuge: p.parentescoConyuge || defaults.conyuge,
+    parentesco: p.parentesco !== undefined && p.parentesco !== '' ? p.parentesco : defaults.direct,
+    parentescoConyuge: p.parentescoConyuge !== undefined && p.parentescoConyuge !== '' ? p.parentescoConyuge : defaults.conyuge,
     esAvo: Boolean(p.esAvo),
-    nombreCompleto: p.nombreCompleto || '',
-    variantes: p.variantes || '',
-    paisNacimiento: normalizeCountryCode(p.paisNacimiento || (p.esAvo ? 'italia' : 'uruguay')),
-    fechaNacimiento: p.fechaNacimiento || '',
-    lugarNacimiento: p.lugarNacimiento || (p.esAvo ? 'Italia' : 'Montevideo, Uruguay'),
+    nombreCompleto: p.nombreCompleto !== undefined ? p.nombreCompleto : '',
+    variantes: p.variantes !== undefined ? p.variantes : '',
+    paisNacimiento: normalizeCountryCode(p.paisNacimiento !== undefined ? p.paisNacimiento : (p.esAvo ? 'italia' : 'uruguay')),
+    fechaNacimiento: p.fechaNacimiento !== undefined ? p.fechaNacimiento : '',
+    lugarNacimiento: p.lugarNacimiento !== undefined ? p.lugarNacimiento : (p.esAvo ? 'Italia' : 'Montevideo, Uruguay'),
     viveActualmente: p.viveActualmente ?? (index < 2),
-    fechaDefuncion: p.fechaDefuncion || '',
-    lugarDefuncion: p.lugarDefuncion || '',
+    fechaDefuncion: p.fechaDefuncion !== undefined ? p.fechaDefuncion : '',
+    lugarDefuncion: p.lugarDefuncion !== undefined ? p.lugarDefuncion : '',
     
     // Esposa / Cónyuge
-    nombreConyuge: p.nombreConyuge || '',
-    paisConyuge: normalizeCountryCode(p.paisConyuge || (p.esAvo ? 'italia' : 'uruguay')),
-    fechaNacimientoConyuge: p.fechaNacimientoConyuge || '',
-    lugarNacimientoConyuge: p.lugarNacimientoConyuge || '',
+    nombreConyuge: p.nombreConyuge !== undefined ? p.nombreConyuge : '',
+    paisConyuge: normalizeCountryCode(p.paisConyuge !== undefined ? p.paisConyuge : (p.esAvo ? 'italia' : 'uruguay')),
+    fechaNacimientoConyuge: p.fechaNacimientoConyuge !== undefined ? p.fechaNacimientoConyuge : '',
+    lugarNacimientoConyuge: p.lugarNacimientoConyuge !== undefined ? p.lugarNacimientoConyuge : '',
     viveConyuge: p.viveConyuge ?? (index < 2),
-    fechaDefuncionConyuge: p.fechaDefuncionConyuge || '',
-    lugarDefuncionConyuge: p.lugarDefuncionConyuge || '',
+    fechaDefuncionConyuge: p.fechaDefuncionConyuge !== undefined ? p.fechaDefuncionConyuge : '',
+    lugarDefuncionConyuge: p.lugarDefuncionConyuge !== undefined ? p.lugarDefuncionConyuge : '',
 
     // Matrimonio
-    fechaMatrimonio: p.fechaMatrimonio || '',
-    lugarMatrimonio: p.lugarMatrimonio || '',
+    fechaMatrimonio: p.fechaMatrimonio !== undefined ? p.fechaMatrimonio : '',
+    lugarMatrimonio: p.lugarMatrimonio !== undefined ? p.lugarMatrimonio : '',
 
     // Avo
-    comunaOProvinciaItalia: p.comunaOProvinciaItalia || '',
-    fechaLlegadaRioDeLaPlata: p.fechaLlegadaRioDeLaPlata || '',
+    comunaOProvinciaItalia: p.comunaOProvinciaItalia !== undefined ? p.comunaOProvinciaItalia : '',
+    fechaLlegadaRioDeLaPlata: p.fechaLlegadaRioDeLaPlata !== undefined ? p.fechaLlegadaRioDeLaPlata : '',
     estadoCorteElectoral: p.estadoCorteElectoral || 'no_solicitado',
 
     // Actas
@@ -330,7 +333,7 @@ const migratePersona = (p: Partial<PersonaFamiliar>, index: number): PersonaFami
     actaDefuncionConyuge: Boolean(p.actaDefuncionConyuge),
     certificadoNoNaturalizacion: Boolean(p.certificadoNoNaturalizacion),
 
-    notas: p.notas || ''
+    notas: p.notas !== undefined ? p.notas : ''
   };
 };
 
@@ -362,15 +365,36 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
   });
 
   const [selectedId, setSelectedId] = useState<string>(() => {
-    return DEFAULT_LINE[DEFAULT_LINE.length - 1].id;
+    try {
+      const savedSelectedId = localStorage.getItem(STORAGE_SELECTED_ID_KEY);
+      if (savedSelectedId && personas.some(p => p.id === savedSelectedId)) {
+        return savedSelectedId;
+      }
+    } catch (e) {
+      console.warn('Error al cargar selectedId de localStorage', e);
+    }
+    const avo = personas.find(p => p.esAvo);
+    return avo ? avo.id : (personas[personas.length - 1]?.id || DEFAULT_LINE[DEFAULT_LINE.length - 1].id);
   });
 
   // Pestaña activa dentro de la generación seleccionada: Antepasado | Cónyuge | Matrimonio
-  const [activeTab, setActiveTab] = useState<'antepasado' | 'conyuge' | 'matrimonio'>('antepasado');
+  const [activeTab, setActiveTab] = useState<'antepasado' | 'conyuge' | 'matrimonio'>(() => {
+    try {
+      const savedTab = localStorage.getItem(STORAGE_ACTIVE_TAB_KEY);
+      if (savedTab === 'antepasado' || savedTab === 'conyuge' || savedTab === 'matrimonio') {
+        return savedTab;
+      }
+    } catch (e) {
+      console.warn('Error al cargar activeTab de localStorage', e);
+    }
+    return 'antepasado';
+  });
+
   const [copied, setCopied] = useState(false);
+  const [savedManually, setSavedManually] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-  // Auto-guardar en localStorage
+  // Auto-guardar personas en localStorage
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(personas));
@@ -378,6 +402,41 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
       console.error('Error al guardar en localStorage', e);
     }
   }, [personas]);
+
+  // Auto-guardar selectedId en localStorage
+  useEffect(() => {
+    try {
+      if (selectedId) {
+        localStorage.setItem(STORAGE_SELECTED_ID_KEY, selectedId);
+      }
+    } catch (e) {
+      console.error('Error al guardar selectedId en localStorage', e);
+    }
+  }, [selectedId]);
+
+  // Auto-guardar activeTab en localStorage
+  useEffect(() => {
+    try {
+      if (activeTab) {
+        localStorage.setItem(STORAGE_ACTIVE_TAB_KEY, activeTab);
+      }
+    } catch (e) {
+      console.error('Error al guardar activeTab en localStorage', e);
+    }
+  }, [activeTab]);
+
+
+  const handleManualSave = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(personas));
+      localStorage.setItem(STORAGE_SELECTED_ID_KEY, selectedId);
+      localStorage.setItem(STORAGE_ACTIVE_TAB_KEY, activeTab);
+      setSavedManually(true);
+      setTimeout(() => setSavedManually(false), 2200);
+    } catch (e) {
+      console.error('Error al guardar manualmente en localStorage', e);
+    }
+  };
 
   const selectedPersona = personas.find(p => p.id === selectedId) || personas[personas.length - 1] || personas[0];
 
@@ -511,6 +570,8 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(LEGACY_STORAGE_KEY);
+      localStorage.removeItem(STORAGE_SELECTED_ID_KEY);
+      localStorage.removeItem(STORAGE_ACTIVE_TAB_KEY);
     } catch {
       // ignore
     }
@@ -642,18 +703,61 @@ export const MiArbol: React.FC<MiArbolProps> = ({ onNavigate }) => {
         
         {/* Header Consular */}
         <div className="border-b border-[#07214e]/20 pb-6 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="border-l-4 border-[#076525] pl-6 md:pl-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#07214e] tracking-tight">
-              Línea de Transmisión del Avo
-            </h1>
-            <p className="mt-2 text-sm md:text-base text-neutral-600 max-w-3xl font-light">
+          <div className="border-l-4 border-[#076525] pl-6 md:pl-8 space-y-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#07214e] tracking-tight">
+                Línea de Transmisión del Avo
+              </h1>
+              {/* Badge sutil y sobrio de guardado */}
+              <div 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#076525]/10 border border-[#076525]/30 text-[#076525] text-xs font-mono tracking-tight select-none"
+                title="Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso."
+              >
+                <Check className="w-3.5 h-3.5 text-[#076525] stroke-[2.5]" />
+                <span className="font-semibold">✓ Guardado en este navegador</span>
+              </div>
+            </div>
+
+            <p className="text-sm md:text-base text-neutral-600 max-w-3xl font-light">
               Mapeá tu cadena ininterrumpida de ciudadanía desde el antepasado italiano hasta vos.
               Estructura con soporte de parejas lado a lado, escala compacta y actualización visual en tiempo real.
             </p>
+
+            {/* Mensaje aclaratorio de privacidad / almacenamiento local */}
+            <div 
+              className="pt-1 flex items-center gap-2 text-xs text-neutral-500 font-mono"
+              title="Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso."
+            >
+              <ShieldCheck className="w-4 h-4 text-[#076525] shrink-0" />
+              <span>Tus datos se guardan de forma privada en el almacenamiento local de tu navegador (localStorage). Nadie más tiene acceso.</span>
+            </div>
           </div>
 
           {/* Barra de Herramientas Global */}
           <div className="flex flex-wrap items-center gap-2.5">
+            {/* Botón Guardar Explícito */}
+            <button
+              onClick={handleManualSave}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2.5 border text-xs font-mono tracking-wider uppercase transition-colors cursor-pointer shadow-2xs ${
+                savedManually 
+                  ? 'bg-[#076525] text-white border-[#076525]' 
+                  : 'bg-white hover:bg-neutral-50 text-[#07214e] border-neutral-300 hover:border-[#07214e]'
+              }`}
+              title="Guardar cambios manualmente en el almacenamiento local de tu navegador (localStorage)"
+            >
+              {savedManually ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                  <span>✓ Guardado</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-3.5 h-3.5 text-[#07214e]" />
+                  <span>Guardar</span>
+                </>
+              )}
+            </button>
+
             <button
               onClick={handleCopySummary}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#07214e] hover:bg-[#07214e] text-white text-xs font-mono tracking-wider uppercase transition-colors cursor-pointer shadow-sm"

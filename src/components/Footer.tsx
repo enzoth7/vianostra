@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { FaTiktok, FaWhatsapp, FaYoutube } from 'react-icons/fa6';
+import appleTouchIcon from '../assets/apple-touch-icon.png';
+import logoET from '../assets/LogoET.png';
 import type { EndpointType } from './Navbar';
 
 interface FooterProps {
@@ -50,10 +52,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_0.8fr_1.2fr] gap-10 lg:gap-12">
             <div>
               <a href="/" onClick={(event) => handleNav(event, 'inicio')} className="inline-flex items-center gap-3 rounded-md">
-                <img src="/apple-touch-icon.png" alt="" width="48" height="48" className="h-12 w-12 rounded-md bg-white object-cover" />
+                <img src={appleTouchIcon} alt="" width="48" height="48" className="h-12 w-12 object-contain" />
                 <span className="font-serif text-2xl">Via Nostra</span>
               </a>
               <div className="mt-5 h-0.5 w-20 rounded-full bg-[#FEBF02]" aria-hidden="true" />
+              <div className="mt-5 flex items-center gap-4">
+                <a
+                  href="https://www.youtube.com/@vianostrauy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Via Nostra en YouTube"
+                  className="text-white/75 hover:text-[#D20911] transition-colors"
+                >
+                  <FaYoutube className="w-6 h-6" aria-hidden="true" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@vianostrabo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Via Nostra en TikTok"
+                  className="text-white/75 hover:text-white transition-colors"
+                >
+                  <FaTiktok className="w-5 h-5" aria-hidden="true" />
+                </a>
+              </div>
             </div>
 
             <nav aria-label="Explorar">
@@ -93,12 +115,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   {copyStatus === 'copied' ? <Check className="w-4 h-4" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
                 </button>
               </div>
-              <div className="mt-5 flex items-center gap-3">
-                <a href="https://www.youtube.com/@ViaNostraBo" target="_blank" rel="noopener noreferrer" aria-label="Via Nostra en YouTube" className="w-11 h-11 rounded-md border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#D20911] hover:text-white hover:border-[#D20911] transition-colors">
-                  <FaYoutube className="w-4 h-4" aria-hidden="true" />
-                </a>
-                <a href="https://www.tiktok.com/@vianostrabo" target="_blank" rel="noopener noreferrer" aria-label="Via Nostra en TikTok" className="w-11 h-11 rounded-md border border-white/20 flex items-center justify-center text-white/70 hover:bg-white hover:text-[#07214e] transition-colors">
-                  <FaTiktok className="w-4 h-4" aria-hidden="true" />
+              <div className="mt-5">
+                <a
+                  href="https://www.enzothome.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Página hecha por Enzo Thome, abrir sitio web"
+                  className="group inline-flex items-center gap-2.5 text-white/70 hover:text-white transition-colors"
+                >
+                  <img
+                    src={logoET}
+                    alt="Logo de Enzo Thome"
+                    width="26"
+                    height="26"
+                    className="h-6.5 w-6.5 rounded-md object-cover"
+                  />
+                  <span className="text-xs underline underline-offset-4 decoration-white/30 group-hover:decoration-white">
+                    Página hecha por Enzo Thome
+                  </span>
                 </a>
               </div>
               <p className="sr-only" role="status" aria-live="polite">
@@ -110,11 +144,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       </footer>
 
       <a
-        href="https://wa.me/59898633186"
+        href="https://wa.me/59898633186?text=Hola!%20Vengo%20de%20Via%20Nostra%2C%20quer%C3%ADa%20saber%20m%C3%A1s%20de%20como%20sacar%20mi%20ciudadan%C3%ADa%20italiana"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar a Via Nostra por WhatsApp"
-        className="fixed left-4 bottom-4 md:left-6 md:bottom-6 z-40 w-14 h-14 rounded-full bg-[#076525] text-white flex items-center justify-center shadow-[0_8px_24px_rgba(7,33,78,0.24)] hover:bg-[#05551e] transition-colors"
+        className="fixed right-4 bottom-4 md:right-6 md:bottom-6 z-40 w-14 h-14 rounded-full bg-[#076525] text-white flex items-center justify-center shadow-[0_8px_24px_rgba(7,33,78,0.24)] hover:bg-[#05551e] transition-colors"
       >
         <FaWhatsapp className="w-7 h-7" aria-hidden="true" />
       </a>

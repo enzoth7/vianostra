@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  ArrowUpRight, 
   Landmark, 
   Building2, 
   Ship, 
@@ -322,7 +321,6 @@ export const RecursosSection: React.FC<RecursosSectionProps> = ({ onNavigate }) 
                           className="text-xs font-mono text-[#07214e] group-hover:underline underline-offset-4 inline-flex items-center gap-1 font-medium transition-colors"
                         >
                           <span>Visitar portal</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </a>
                       </div>
                     </article>
@@ -353,7 +351,7 @@ export const RecursosSection: React.FC<RecursosSectionProps> = ({ onNavigate }) 
               onClick={() => handleNav('ruta-avo')}
               className="px-4 py-2 text-xs font-mono uppercase tracking-wider bg-[#07214e] text-white hover:bg-[#07214e]/90 transition-colors cursor-pointer"
             >
-              Ver Ruta del Avo →
+              Ver Ruta del Avo
             </button>
             <button
               onClick={() => handleNav('carta-comuna')}
