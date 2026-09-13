@@ -1,53 +1,11 @@
+import React from 'react';
 import { Archive, BookOpen, Search } from 'lucide-react';
 import type { EndpointType } from './Navbar';
+import { VideoCarousel } from './VideoCarousel';
 
 interface HomeArchiveProps {
   onNavigate: (endpoint: EndpointType) => void;
 }
-
-interface HomeVideo {
-  id: string;
-  number: string;
-  title: string;
-  duration: string;
-  status: 'Publicado';
-  videoId: string;
-}
-
-const HOME_VIDEOS: HomeVideo[] = [
-  {
-    id: 'sin-gestores',
-    number: '01',
-    title: 'Ciudadanía italiana para uruguayos sin gestor',
-    duration: 'Short',
-    status: 'Publicado',
-    videoId: 'ir3WJ1JJnGk',
-  },
-  {
-    id: 'apellido',
-    number: '02',
-    title: '¿Cómo saber si tu apellido es italiano?',
-    duration: 'Short',
-    status: 'Publicado',
-    videoId: 'xHpkHWpSghI',
-  },
-  {
-    id: 'costos',
-    number: '03',
-    title: '¿Cuánto cuesta la ciudadanía italiana?',
-    duration: 'Short',
-    status: 'Publicado',
-    videoId: 'cSHWaGQjqHU',
-  },
-  {
-    id: 'empezar-sin-gestor',
-    number: '04',
-    title: 'Cómo empezar tu ciudadanía italiana sin gestor',
-    duration: 'Short',
-    status: 'Publicado',
-    videoId: 'MFOIDY931F0',
-  },
-];
 
 interface StartPoint {
   title: string;
@@ -136,23 +94,7 @@ export const HomeArchive: React.FC<HomeArchiveProps> = ({ onNavigate }) => {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-7">
-            {HOME_VIDEOS.map((video) => (
-              <article key={video.id} className="min-w-0">
-                <div className="aspect-[9/16] rounded-lg border border-[#07214e]/15 bg-black overflow-hidden relative shadow-sm">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.videoId}`}
-                    title={video.title}
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-3 font-serif text-base md:text-lg leading-snug text-[#07214e]">{video.title}</h3>
-              </article>
-            ))}
-          </div>
+          <VideoCarousel />
         </div>
       </section>
 
