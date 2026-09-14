@@ -10,13 +10,13 @@ const ACTUALIDAD_NOTICIAS: ActualidadGalleryItem[] = [
     detail: 'Frente a las iniciativas parlamentarias impulsadas por Antonio Tajani para restringir la ciudadanía a dos generaciones, pronunciamientos de la Corte Constitucional y tribunales ordinarios (Campobasso) confirmaron que el derecho de sangre de la Ley 91/1992 se transmite sin interrupción.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+    image: '/recursos/embajadamvd.jpg',
     title: 'Desconcierto por suspensión y bloqueo de citas en Montevideo',
     summary: 'La Embajada en Uruguay interrumpe y reprograma turnos Prenot@Mi por saturación informática y nuevas medidas de control.',
     detail: 'La prensa uruguaya (El País) reporta desconcierto generalizado entre cientos de familias por la falta de turnos en Montevideo, donde la demora para reconstrucción supera los dos años, consolidando la vía judicial directa como alternativa real.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+    image: '/recursos/roma.jpg',
     title: 'Entra en vigor la nueva tasa de 600 € por solicitante',
     summary: 'La Ley de Presupuesto italiana duplicó el arancel consular y judicial para el reconocimiento de ciudadanía iure sanguinis.',
     detail: 'A partir del ejercicio 2025, el gobierno italiano fijó en 600 euros la tasa administrativa por cada solicitante mayor de edad, aplicable tanto en ventanilla consular como en el contributo unificato para litigios ante tribunales italianos.',
@@ -28,7 +28,7 @@ const ACTUALIDAD_NOTICIAS: ActualidadGalleryItem[] = [
     detail: 'Ante la denegación de justicia comprobada por la saturación consular en el Río de la Plata, los tribunales provinciales de origen del avo reconocen la ciudadanía por vía civil en Italia con abogado apoderado y sin necesidad de viajar.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=1200&q=80',
+    image: '/recursos/parlamentoitalia1.jpg',
     title: 'Horizonte 2026: el Parlamento define el tratamiento de las reformas',
     summary: 'La Comisión de Asuntos Constitucionales en Roma programa el debate final del ius sanguinis ante el rechazo de las comunidades en el exterior.',
     detail: 'En el calendario legislativo de 2026, los legisladores electos por Sudamérica mantienen el bloqueo parlamentario contra el tope de dos generaciones, demandando en su lugar mayor dotación presupuestaria y digitalización para los consulados en América Latina.',
